@@ -1,46 +1,15 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { request } from '../helpers/request'
+import { request } from '../helpers/request';
+import {CoursesInterface, CoursesContextType, StoreProviderInterface, UserType } from '../interfaces/interfaces'
 
 
-export interface CoursesInterface {
-  id: number;
-  title: string;
-  description: string;
-}
 
-export interface UserInterface {
-  name: string;
-}
-
-export type UserType = string;
-
-export type CoursesContextType = {
-  courses: CoursesInterface[];
-  setCourse?: () => void;
-  user: UserType;
-  setUser?: () => void;
-};
-
-interface StoreProviderInterface {
-  children: JSX.Element | JSX.Element[];
-}
 
 export const StoreContext = createContext<CoursesContextType | null>(null);
 
 const StoreProvider = ({ children }: StoreProviderInterface) => {
   const [user, setUser] = useState<UserType>('');
-  const [courses, setCourses] = useState<CoursesInterface[]>([
-    {
-      id: 1,
-      title: 'post 1',
-      description: 'this is a description',
-    },
-    {
-      id: 2,
-      title: 'post 2',
-      description: 'this is a description',
-    },
-  ]);
+  const [courses, setCourses] = useState<CoursesInterface[]>([]);
 
   const fetchData = async () => {
     const { data } = await request.get('/courses')
@@ -53,7 +22,7 @@ const StoreProvider = ({ children }: StoreProviderInterface) => {
   }, []);
   
   return (
-    <StoreContext.Provider value={{ courses, user }}>
+    <StoreContext.Provider value={{ courses, setCourses, user, setUser }}>
       {children}
     </StoreContext.Provider>
   );

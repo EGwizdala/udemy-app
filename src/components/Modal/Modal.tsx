@@ -1,23 +1,22 @@
-import React, {useLayoutEffect, useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import ReactDOM from 'react-dom';
 import bemCssModules from 'bem-css-modules';
-
 import { default as ModalStyles } from './Modal.module.scss';
 
 const style = bemCssModules(ModalStyles);
 
 interface ModalInterface {
-  children: JSX.Element | JSX.Element[];
+  children?: JSX.Element | JSX.Element[] | React.ReactNode;
   handleOnClose: () => void;
   isOpen: boolean;
   sholudBeCloseOnOutsideClick: boolean;
 }
 
 const Modal = ({ children, handleOnClose, isOpen, sholudBeCloseOnOutsideClick }:ModalInterface) => {
-  const modalRef = useRef<HTMLDialogElement>(null);
-  const previousActiveElement = useRef<HTMLElement>(null);
+  const modalRef = useRef<any>(null);
+  let previousActiveElement = useRef<any>(null);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!modalRef.current) {
       return;
     };
@@ -27,16 +26,17 @@ const Modal = ({ children, handleOnClose, isOpen, sholudBeCloseOnOutsideClick }:
     if (isOpen) {
       previousActiveElement.current = document.activeElement;
       modal.showModal();
-    } else if (previousActiveElement.current) {
+    }
+    else if (previousActiveElement.current) {
       modal.close();
       previousActiveElement.current.focus();
     }
   }, [isOpen]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const { current: modal } = modalRef;
 
-    const handleCancel = (e:any) => {
+    const handleCancel = (e:React.MouseEvent) => {
       e.preventDefault();
       handleOnClose();
     };
@@ -50,7 +50,7 @@ const Modal = ({ children, handleOnClose, isOpen, sholudBeCloseOnOutsideClick }:
     };
   })
 
-  const handleOutsideClick = ({ target }:any ) => {
+  const handleOutsideClick = ({ target }: React.MouseEvent ) => {
     const { current } = modalRef;
 
     if (sholudBeCloseOnOutsideClick && target === current) {
