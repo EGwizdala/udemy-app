@@ -15,7 +15,10 @@ const Courses = () => {
 
   return (
     <section>
-      
+      <h2 className={style('title')}></h2>
+      <ul className={style('list')}>
+        {coursesElements}
+      </ul>
     </section>
   );
 };
