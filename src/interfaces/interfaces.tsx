@@ -1,19 +1,27 @@
 export interface CoursesInterface {
-  id: number;
+  authors: string[];
+  id: string;
+  img: string;
+  isUserContext?: boolean;
+  price: number;
   title: string;
-  description: string;
 }
 
 export interface UserInterface {
-  name: string;
+  accessLevel: number;
+  budget: number;
+  courses: string[];
+  login: string;
+  password: string
+
 }
 
 export type UserType = any;
 
 export type CoursesContextType = {
   courses: CoursesInterface[];
-  setCourses?: (any);
-  user: UserType;
+  setCourses?: any;
+  user: UserInterface;
   setUser?: any;
 };
 

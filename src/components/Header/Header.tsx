@@ -22,7 +22,7 @@ const Header = () => {
     }
   }; 
 
-  const setPropertyLabel = Boolean(user) ? 'Wyloguj się' : 'Zaloguj się';
+  const setPropertyLabel = Boolean(user) && !isNaN(user.accessLevel) ? 'Wyloguj się' : 'Zaloguj się';
 
   return (
     <header className={style()}>

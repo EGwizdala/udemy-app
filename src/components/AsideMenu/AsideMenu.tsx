@@ -3,24 +3,28 @@ import bemCssModules from 'bem-css-modules';
 import { default as AsideMenuStyles } from "./AsideMenu.module.scss";
 import { StoreContext } from '../../store/StoreProvider';
 import { CoursesContextType } from '../../interfaces/interfaces';
-import { ADMIN_TYPE } from '../../constant/constant';
+import { ADMIN_TYPE, USER_TYPE } from '../../constant/constant';
 import UserMenu from './subcomponents/UserMenu';
 import AdminMenu from './subcomponents/AdminMenu';
 
-
 const style = bemCssModules(AsideMenuStyles);
-
-
 
 const AsideMenu = () => {
   const { user } = useContext(StoreContext) as CoursesContextType;
-
-  const admineMenuComponent = user?.accesLevel === ADMIN_TYPE ? <AdminMenu/> : null
+  const admineMenuComponent = user?.accessLevel === ADMIN_TYPE ?
+    <>
+      <UserMenu isUserLogged={Boolean(user)} />
+      <AdminMenu />
+    </>
+    : null
+  const userMenuComponent = user?.accessLevel === USER_TYPE ? <UserMenu isUserLogged={Boolean(user)} /> : null
   
   return (
     <section className={style()}>
-      <UserMenu isUserLogged={Boolean(user)} />
+      <div className={style('nav-wrapper')}>
+      {userMenuComponent}
       {admineMenuComponent}
+      </div>
     </section>
   );
 };

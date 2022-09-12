@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter as Router } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import './App.scss';
 import AsideMenu from './components/AsideMenu';
 import Content from "./components/Content";
@@ -11,12 +11,12 @@ const App = () => {
   return (
     <StoreProvider>
       <Header />
-      <Router>
+      <BrowserRouter>
       <div className="content-wrapper">
           <AsideMenu />
           <Content/>
       </div>
-      </Router>
+      </BrowserRouter>
     </StoreProvider>
     
   );

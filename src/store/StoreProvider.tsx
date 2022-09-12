@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { request } from '../helpers/request';
-import {CoursesInterface, CoursesContextType, StoreProviderInterface, UserType } from '../interfaces/interfaces'
+import {CoursesInterface, CoursesContextType, StoreProviderInterface, UserInterface } from '../interfaces/interfaces'
 
 
 
@@ -8,14 +8,21 @@ import {CoursesInterface, CoursesContextType, StoreProviderInterface, UserType }
 export const StoreContext = createContext<CoursesContextType | null>(null);
 
 const StoreProvider = ({ children }: StoreProviderInterface) => {
-  const [user, setUser] = useState<UserType>('');
+  const [user, setUser] = useState<UserInterface>({
+    accessLevel: NaN,
+    budget:NaN,
+    courses: [],
+    login: "",
+    password: "",
+  });
   const [courses, setCourses] = useState<CoursesInterface[]>([]);
 
   const fetchData = async () => {
-    const { data } = await request.get('/courses')
-    
+    const { data } = await request.get('/courses');
     setCourses(data.courses)
   }
+
+  console.log(user)
 
   useEffect(() => {
     fetchData();
