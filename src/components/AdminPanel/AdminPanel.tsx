@@ -1,28 +1,39 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import bemCssModules from 'bem-css-modules';
-import { default as AdmiPanelStyles } from "./AdmiPanel.module.scss";
+import { default as AdminPanelStyles } from "./AdminPanel.module.scss";
 import { StoreContext } from '../../store/StoreProvider';
 import { CoursesContextType } from '../../interfaces/interfaces';
-import Course from '../Course';
+import CourseDetails from './subcomponents/CourseDetails';
+import CoursePopup from './subcomponents/CoursePopup';
 
 
 
-const style = bemCssModules(AdmiPanelStyles);
-
-const AdmiPanel = () => {
-  
+const style = bemCssModules(AdminPanelStyles);
+ 
+const AdminPanel = () => {
   const { courses, user } = useContext(StoreContext) as CoursesContextType;
+  const [isOpenPopup, setIsOpenPopup] = useState(false);
+  
 
-  const buyedCourses = courses.filter(course => user.courses.includes(course.id)).map(course => <Course isUserContext={true} key={course.id} {...course} />);
+  const hidePopup = (e:any)  => {
+    e.preventDefault(); 
+    setIsOpenPopup(false);
+  }
+
+  console.log(courses)
+
+  const coursesElelements = courses?.map(course => course && <CourseDetails key={course.id} {...course} />)
  
   return (
-    <section className={style()}>
-      <h2 className={style('title')}>Twoje wykupione kursy</h2>
-      <ul className={style('list')}>
-        {buyedCourses}
+    <section >
+      <h2 >Twoje wykupione kursy</h2>
+      <ul >
+        {coursesElelements}
       </ul>
+      <button >Dodaj nowy kurs</button>
+      <CoursePopup isEditMode={false} isOpenPopup={isOpenPopup} hidePopup={hidePopup} />
     </section> 
   );
 };
 
-export default AdmiPanel;
+export default AdminPanel;

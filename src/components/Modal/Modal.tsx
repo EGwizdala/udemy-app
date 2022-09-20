@@ -7,9 +7,9 @@ const style = bemCssModules(ModalStyles);
 
 interface ModalInterface {
   children?: JSX.Element | JSX.Element[] | React.ReactNode;
-  handleOnClose: () => void;
+  handleOnClose: (e:React.MouseEvent) => void;
   isOpen: boolean;
-  sholudBeCloseOnOutsideClick: boolean;
+  sholudBeCloseOnOutsideClick?: boolean;
 }
 
 const Modal = ({ children, handleOnClose, isOpen, sholudBeCloseOnOutsideClick }:ModalInterface) => {
@@ -38,7 +38,7 @@ const Modal = ({ children, handleOnClose, isOpen, sholudBeCloseOnOutsideClick }:
 
     const handleCancel = (e:React.MouseEvent) => {
       e.preventDefault();
-      handleOnClose();
+      handleOnClose(e);
     };
 
     //dodawanie akcji wyjścia za pomocą klawiatury
@@ -50,11 +50,11 @@ const Modal = ({ children, handleOnClose, isOpen, sholudBeCloseOnOutsideClick }:
     };
   })
 
-  const handleOutsideClick = ({ target }: React.MouseEvent ) => {
+  const handleOutsideClick = (e: React.MouseEvent ) => {
     const { current } = modalRef;
 
-    if (sholudBeCloseOnOutsideClick && target === current) {
-      handleOnClose();
+    if (sholudBeCloseOnOutsideClick && e.target === current) {
+      handleOnClose(e);
     }
   };
 

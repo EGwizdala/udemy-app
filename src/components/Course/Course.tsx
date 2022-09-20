@@ -15,7 +15,7 @@ const Course = ({ authors, id, isUserContext, img, price, title }: CoursesInterf
   const { setUser, user } = useContext(StoreContext) as CoursesContextType;
   const navigate = useNavigate();
 
-  const allAuthors = authors.join(', ');
+  const allAuthors = authors?.join(', ');
   const isUserLogged = Boolean(user);
 
   console.log(isUserLogged)

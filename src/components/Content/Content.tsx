@@ -7,6 +7,7 @@ import { CoursesContextType } from '../../interfaces/interfaces';
 import { ADMIN_TYPE, USER_TYPE } from '../../constant/constant';
 import Courses from '../Courses';
 import UserCourses from '../UserCourses'
+import AdminPanel from '../AdminPanel';
 
 const style = bemCssModules(ContentStyles);
 
@@ -26,7 +27,7 @@ const Content = () => {
         {isUserLogged && isAdmin &&
           <>
             <Route path="/my-courses" element={<p>Moje kursy</p>} />  
-            <Route path="/manage-courses" element={<p>Zarządzanie kursami</p>} />
+            <Route path="/manage-courses" element={<AdminPanel/>} />
           </>
         }
         <Route

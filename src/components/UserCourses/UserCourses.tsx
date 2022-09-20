@@ -13,7 +13,7 @@ const UserCourses = () => {
   
   const { courses, user } = useContext(StoreContext) as CoursesContextType;
 
-  const buyedCourses = courses.filter(course => user.courses.includes(course.id)).map(course => <Course isUserContext={true} key={course.id} {...course} />);
+  const buyedCourses = courses?.filter(course => user.courses.includes(course.id)).map(course => <Course isUserContext={true} key={course.id} {...course} />);
  
   return (
     <section className={style()}>

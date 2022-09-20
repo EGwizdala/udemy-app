@@ -11,7 +11,7 @@ const style = bemCssModules(CoursesStyles);
 const Courses = () => {
   const { courses } = useContext(StoreContext) as CoursesContextType;
   
-  const coursesElements = courses.map(course => <Course key={course.id} {...course} />);
+  const coursesElements = courses?.map(course => <Course key={course.id} {...course} />);
 
   return (
     <section>
