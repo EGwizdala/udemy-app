@@ -20,7 +20,6 @@ interface CoursePopupInterface {
 
 const style = bemCssModules(CoursePopupStyles);
 
-
 const CoursePopup = ({ authors = [], hidePopup, isEditMode = true, isOpenPopup, id, img = '', price = 0, title = ''}:CoursePopupInterface) => {
   const [formAuthors, setFormAuthors] = useState(authors);
   const [formAuthor, setAuthor] = useState('');

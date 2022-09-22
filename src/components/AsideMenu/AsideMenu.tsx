@@ -13,11 +13,11 @@ const AsideMenu = () => {
   const { user } = useContext(StoreContext) as CoursesContextType;
   const admineMenuComponent = user?.accessLevel === ADMIN_TYPE ?
     <>
-      <UserMenu isUserLogged={Boolean(user)} />
+      <UserMenu budget={user.budget} isUserLogged={Boolean(user)} />
       <AdminMenu />
     </>
     : null
-  const userMenuComponent = user?.accessLevel === USER_TYPE ? <UserMenu isUserLogged={Boolean(user)} /> : null
+  const userMenuComponent = user?.accessLevel === USER_TYPE ? <UserMenu budget={user.budget} isUserLogged={Boolean(user)} /> : null
   
   return (
     <section className={style()}>

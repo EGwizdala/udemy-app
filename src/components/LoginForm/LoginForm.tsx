@@ -26,7 +26,6 @@ const LoginForm = ({ handleOnClose, isModalOpen }: LoginInterface) => {
   const handleOnCloseModal = (e: React.MouseEvent) => {
     e.preventDefault();
     handleOnClose();
-    
   };
 
   const resetStateOfInputs = () => {

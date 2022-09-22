@@ -2,7 +2,6 @@ export interface CoursesInterface {
   authors: string[];
   id: string;
   img: string;
-  isUserContext?: boolean;
   price: number;
   title: string;
 }
